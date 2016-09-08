@@ -24,6 +24,7 @@ BasicMultisig API
     target        (uint id) returns (address)
     calldata      (uint id) returns (bytes)
     callsize      (uint id) returns (uint)
+    callhash      (uint id) returns (bytes32)
     value         (uint id) returns (uint)
     expiration    (uint id) returns (uint40)
     expired       (uint id) returns (bool)

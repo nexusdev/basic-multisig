@@ -182,12 +182,16 @@ contract BasicMultisigTest is Test, BasicMultisigEvents {
         LogTriggered(0);
 
         multisig.propose(dummy, expectedData);
+        assertEq32(multisig.callhash(0), sha3(expectedData));
         multisig.confirm(0);
         alice.confirm(multisig, 0);
         multisig.trigger(0);
 
         assertEq(uint(dummy.fooArgument()), 123456789);
     }
+
+    bytes32 expectedHash =
+        0x97d8fbf60876829f4c06d6ba83082b4bd94b9de1ac1b71869315afccddc805cc;
 
     function test_calldata_explicit() {
         bytes memory calldata = new bytes(4 + 32);
@@ -199,6 +203,7 @@ contract BasicMultisigTest is Test, BasicMultisigEvents {
         calldata[4 + 31] = 123;
 
         multisig.propose(dummy, calldata);
+        assertEq32(multisig.callhash(0), expectedHash);
         multisig.confirm(0);
         alice.confirm(multisig, 0);
         multisig.trigger(0);

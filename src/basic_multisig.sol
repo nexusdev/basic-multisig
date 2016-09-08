@@ -51,6 +51,10 @@ contract BasicMultisig is BasicMultisigEvents {
         return calldata[id].length;
     }
 
+    function callhash(uint id) constant returns (bytes32) {
+        return sha3(calldata[id]);
+    }
+
     function expired(uint id) constant returns (bool) {
         return now >= expiration[id];
     }
