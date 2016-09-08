@@ -1,0 +1,11 @@
+name: basic-multisig
+version: 0.0.0-dev
+layout:
+  sol_sources: src
+  build_dir: build
+environments:
+  morden:
+    objects:
+      factory:
+        class: BasicMultisigFactory
+        address: 0x1111111111111111111111111111111111111111

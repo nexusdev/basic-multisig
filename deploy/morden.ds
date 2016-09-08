@@ -1,0 +1,2 @@
+var factory = new BasicMultisigFactory()
+export factory
