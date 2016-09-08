@@ -3,8 +3,11 @@ import "dapple/test.sol";
 import "basic_multisig_factory.sol";
 
 contract Dummy {
+    bool _fail;
+    function fail() { _fail = true; }
+
     bool public fallbackCalled;
-    function() { fallbackCalled = true; }
+    function() { if (_fail) throw; fallbackCalled = true; }
 
     uint32 public fooArgument;
     function foo(uint32 argument) { fooArgument = argument; }
@@ -136,7 +139,20 @@ contract BasicMultisigTest is Test, BasicMultisigEvents {
         alice.confirm(multisig, 0);
         assertFalse(dummy.fallbackCalled());
         multisig.trigger(0);
+        assertTrue(multisig.triggered(0));
+        assertTrue(multisig.succeeded(0));
         assertTrue(dummy.fallbackCalled());
+    }
+
+    function test_failed_trigger() {
+        multisig.propose(dummy);
+        multisig.confirm(0);
+        alice.confirm(multisig, 0);
+        dummy.fail();
+        multisig.trigger(0);
+        assertTrue(multisig.triggered(0));
+        assertFalse(multisig.succeeded(0));
+        assertFalse(dummy.fallbackCalled());
     }
 
     function test_payment() {

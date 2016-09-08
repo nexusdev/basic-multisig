@@ -39,7 +39,7 @@ contract BasicMultisig is BasicMultisigEvents {
     }
 
     //------------------------------------------------------
-    // Proposing actions
+    // Proposing new actions
     //------------------------------------------------------
 
     function actions() constant returns (uint count) {
@@ -101,7 +101,7 @@ contract BasicMultisig is BasicMultisigEvents {
     }
 
     //------------------------------------------------------
-    // Confirming and triggering actions
+    // Confirming and triggering pending actions
     //------------------------------------------------------
 
     modifier pending(uint id) {
