@@ -1,7 +1,7 @@
 name: basic-multisig
 version: 0.0.0-dev
 layout:
-  sol_sources: src
+  sol_sources: .
   build_dir: build
 environments:
   morden:
