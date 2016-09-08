@@ -173,10 +173,10 @@ contract BasicMultisigTest is Test, BasicMultisigEvents {
     function foo(uint32 argument) { expectedData = msg.data; }
 
     function test_calldata_implicit() {
-        expectEventsExact(multisig);
-
         this.foo(123456789);
-        LogProposed(0, dummy, expectedData, 0);
+
+        expectEventsExact(multisig);
+        LogProposed(0);
         LogConfirmed(0, this);
         LogConfirmed(0, alice);
         LogTriggered(0);
@@ -186,7 +186,6 @@ contract BasicMultisigTest is Test, BasicMultisigEvents {
         multisig.confirm(0);
         alice.confirm(multisig, 0);
         multisig.trigger(0);
-
         assertEq(uint(dummy.fooArgument()), 123456789);
     }
 

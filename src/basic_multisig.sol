@@ -1,8 +1,7 @@
 /// basic_multisig.sol -- basic standalone multisig implementation
 
 contract BasicMultisigEvents {
-    event LogProposed  (uint indexed id, address target,
-                        bytes calldata, uint value);
+    event LogProposed  (uint indexed id);
     event LogConfirmed (uint indexed id, address member);
     event LogTriggered (uint indexed id);
 }
@@ -86,7 +85,7 @@ contract BasicMultisig is BasicMultisigEvents {
         triggered     .push(false);
         succeeded     .push(false);
 
-        LogProposed(id, _target, _calldata, _value);
+        LogProposed(id);
     }
 
     function propose(address target, bytes calldata) returns (uint id) {
